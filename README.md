@@ -19,18 +19,17 @@ This Turborepo includes the following packages/apps:
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
 - `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 
-### TypeScript 7 and ESLint
+### Linting and formatting
 
-`@repo/eslint-config` pins `typescript` to `npm:typescript@5.9.2`. `typescript-eslint`
-refuses to load against the TypeScript 7 compiler API, so ESLint runs side by side on
-the older one while every app and package compiles with TypeScript 7. Remove the alias
-when [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)
-ships.
+[oxlint](https://oxc.rs/docs/guide/usage/linter.html) and
+[oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) replace ESLint and Prettier.
+`.oxlintrc.json` at the root holds the shared rules; each app extends it and adds the
+Next.js plugin. Lint runs with `--type-aware`, which uses `oxlint-tsgolint` to read type
+information from the TypeScript 7 compiler.
 
 ### Agent skills
 
@@ -42,8 +41,8 @@ performance rules. Update it with `npx skills update`.
 This Turborepo has some additional tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [oxlint](https://oxc.rs/docs/guide/usage/linter.html) for code linting
+- [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for code formatting
 
 ### Build
 
