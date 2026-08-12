@@ -1,13 +1,10 @@
 # Turborepo starter
 
-This Turborepo starter is maintained by the Turborepo core team.
-
-## Using this example
-
-Run the following command:
+Bun workspaces, Turborepo, Next.js, and TypeScript 7.
 
 ```sh
-npx create-turbo@latest
+bun install
+bun run dev
 ```
 
 ## What's inside?
@@ -30,6 +27,23 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 `.oxlintrc.json` at the root holds the shared rules; each app extends it and adds the
 Next.js plugin. Lint runs with `--type-aware`, which uses `oxlint-tsgolint` to read type
 information from the TypeScript 7 compiler.
+
+### Dependency versions
+
+Shared dependency versions live in the `workspaces.catalog` block of the root
+`package.json`. Packages reference them with `"catalog:"`, so a version is written once
+and every workspace follows it.
+
+### Git hooks
+
+`lefthook.yml` formats and lints staged files before each commit and type-checks before
+each push. `bun install` installs the hooks through the `prepare` script.
+
+### CI
+
+`.github/workflows/ci.yml` runs format, lint, type-check, and build. Set the `TURBO_TOKEN`
+secret and the `TURBO_TEAM` variable to enable
+[Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching).
 
 ### Agent skills
 
@@ -59,9 +73,7 @@ Without global `turbo`, use your package manager:
 
 ```sh
 cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+bunx turbo build
 ```
 
 You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
@@ -75,9 +87,7 @@ turbo build --filter=docs
 Without global `turbo`:
 
 ```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+bunx turbo build --filter=docs
 ```
 
 ### Develop
@@ -95,9 +105,7 @@ Without global `turbo`, use your package manager:
 
 ```sh
 cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+bunx turbo dev
 ```
 
 You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
@@ -111,9 +119,7 @@ turbo dev --filter=web
 Without global `turbo`:
 
 ```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+bunx turbo dev --filter=web
 ```
 
 ### Remote Caching
@@ -136,9 +142,7 @@ Without global `turbo`, use your package manager:
 
 ```sh
 cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
+bunx turbo login
 ```
 
 This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
@@ -154,9 +158,7 @@ turbo link
 Without global `turbo`:
 
 ```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
+bunx turbo link
 ```
 
 ## Useful Links

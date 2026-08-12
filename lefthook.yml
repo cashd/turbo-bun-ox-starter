@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: "*.{js,jsx,ts,tsx,json,css,md}"
+      run: bunx oxfmt {staged_files}
+      stage_fixed: true
+    - name: lint
+      glob: "*.{js,jsx,ts,tsx}"
+      run: bunx oxlint --type-aware --deny-warnings
+
+pre-push:
+  parallel: true
+  jobs:
+    - name: check-types
+      run: bun run check-types
