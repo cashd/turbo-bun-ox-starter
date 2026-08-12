@@ -22,7 +22,20 @@ This Turborepo includes the following packages/apps:
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
+
+### TypeScript 7 and ESLint
+
+`@repo/eslint-config` pins `typescript` to `npm:typescript@5.9.2`. `typescript-eslint`
+refuses to load against the TypeScript 7 compiler API, so ESLint runs side by side on
+the older one while every app and package compiles with TypeScript 7. Remove the alias
+when [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)
+ships.
+
+### Agent skills
+
+`.claude/skills/vercel-react-best-practices` holds Vercel's React and Next.js
+performance rules. Update it with `npx skills update`.
 
 ### Utilities
 
