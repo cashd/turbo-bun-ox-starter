@@ -23,7 +23,6 @@
         "react-dom": "catalog:",
       },
       "devDependencies": {
-        "@repo/oxlint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
@@ -43,7 +42,6 @@
         "react-dom": "catalog:",
       },
       "devDependencies": {
-        "@repo/oxlint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
@@ -52,10 +50,6 @@
         "oxlint-tsgolint": "catalog:",
         "typescript": "catalog:",
       },
-    },
-    "packages/oxlint-config": {
-      "name": "@repo/oxlint-config",
-      "version": "0.0.0",
     },
     "packages/typescript-config": {
       "name": "@repo/typescript-config",
@@ -69,7 +63,6 @@
         "react-dom": "catalog:",
       },
       "devDependencies": {
-        "@repo/oxlint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@types/bun": "catalog:",
         "@types/node": "catalog:",
@@ -255,8 +248,6 @@
     "@oxlint/binding-win32-ia32-msvc": ["@oxlint/binding-win32-ia32-msvc@1.78.0", "", { "os": "win32", "cpu": "ia32" }, "sha512-zcuXFVrEFHIafRfkCQT8w/Xe41o07ozl/vwHq7p94vB29xVzsB0sZGYORU1jhcYKv3Lr0J3HbJ2T4fHH5rWmvA=="],
 
     "@oxlint/binding-win32-x64-msvc": ["@oxlint/binding-win32-x64-msvc@1.78.0", "", { "os": "win32", "cpu": "x64" }, "sha512-Sb5ocmLSuYeOuXd+CFOToGKp/gjXUEWDnvIGwhnh8aq8wY4TMmEnKnvbogSW7RdMZv77JSARduS7/gv+khYEjA=="],
-
-    "@repo/oxlint-config": ["@repo/oxlint-config@workspace:packages/oxlint-config"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:packages/typescript-config"],
 

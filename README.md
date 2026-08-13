@@ -17,7 +17,6 @@ This Turborepo includes the following packages/apps:
 - `web`: another [Next.js](https://nextjs.org/) app
 - `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-- `@repo/oxlint-config`: `.oxlintrc.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 
@@ -25,11 +24,9 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 
 [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and
 [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) replace ESLint and Prettier.
-`@repo/oxlint-config` holds the shared rules, the same way `@repo/typescript-config`
-holds the shared compiler options. It ships three configs that build on each other:
-`base.json`, `react.json`, and `next.json`. Each workspace has a small `.oxlintrc.json`
-that extends the one it needs. Lint runs with `--type-aware`, which uses
-`oxlint-tsgolint` to read type information from the TypeScript 7 compiler.
+`.oxlintrc.json` at the root holds the shared rules; each app extends it and adds the
+Next.js plugin. Lint runs with `--type-aware`, which uses `oxlint-tsgolint` to read type
+information from the TypeScript 7 compiler.
 
 ### Tests
 
