@@ -12,19 +12,17 @@ concurrency:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-  # On a PR, only the packages touched since the merge base run. Pushes to main
-  # build everything so the remote cache is warm for the next PR.
-  AFFECTED: ${{ github.event_name == 'pull_request' && '--affected' || '' }}
-  TURBO_SCM_BASE: ${{ github.event.pull_request.base.sha }}
-  TURBO_SCM_HEAD: ${{ github.sha }}
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+      # `--affected` needs the merge base in the checkout. A shallow clone makes
+      # every package look changed.
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          filter: blob:none
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -34,4 +32,4 @@ jobs:
 
       - run: bun run format:check
 
-      - run: bun run turbo run lint check-types test build $AFFECTED
+      - run: bun run turbo run lint check-types test build --affected

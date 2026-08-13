@@ -49,10 +49,11 @@ each push. `bun install` installs the hooks through the `prepare` script.
 ### CI
 
 `.github/workflows/ci.yml` runs format, lint, type-check, test, and build in one
-`turbo run`. On a pull request it adds
+`turbo run` with
 [`--affected`](https://turborepo.dev/docs/reference/run#--affected), so only the packages
-touched since the merge base do work. Pushes to `main` run everything and keep the
-remote cache warm for the next pull request. Set the `TURBO_TOKEN` secret and the
+touched since the base do work. Turborepo reads the base ref out of the GitHub Actions
+environment on its own, so there is nothing to configure — but the checkout must have the
+history, hence `fetch-depth: 0`. Set the `TURBO_TOKEN` secret and the
 `TURBO_TEAM` variable to enable
 [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching).
 
