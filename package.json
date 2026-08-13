@@ -1,6 +1,7 @@
 {
   "name": "turbo-bun-ox-starter",
   "private": true,
+  "license": "MIT",
   "workspaces": {
     "packages": [
       "apps/*",
