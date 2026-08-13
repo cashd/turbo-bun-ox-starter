@@ -17,6 +17,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@repo/oxlint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

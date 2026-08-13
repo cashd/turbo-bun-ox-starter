@@ -17,6 +17,7 @@ This Turborepo includes the following packages/apps:
 - `web`: another [Next.js](https://nextjs.org/) app
 - `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@repo/oxlint-config`: `.oxlintrc.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 
@@ -24,9 +25,18 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) 7.
 
 [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and
 [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) replace ESLint and Prettier.
-`.oxlintrc.json` at the root holds the shared rules; each app extends it and adds the
-Next.js plugin. Lint runs with `--type-aware`, which uses `oxlint-tsgolint` to read type
-information from the TypeScript 7 compiler.
+`@repo/oxlint-config` holds the shared rules, the same way `@repo/typescript-config`
+holds the shared compiler options. It ships three configs that build on each other:
+`base.json`, `react.json`, and `next.json`. Each workspace has a small `.oxlintrc.json`
+that extends the one it needs. Lint runs with `--type-aware`, which uses
+`oxlint-tsgolint` to read type information from the TypeScript 7 compiler.
+
+### Tests
+
+Tests run on [`bun test`](https://bun.sh/docs/cli/test) — no separate test runner to
+install or configure. Files named `*.test.tsx` next to the source are picked up
+automatically. `@repo/ui` has examples that render components with
+`react-dom/server`. Run them all with `bun run test`.
 
 ### Dependency versions
 
@@ -41,8 +51,12 @@ each push. `bun install` installs the hooks through the `prepare` script.
 
 ### CI
 
-`.github/workflows/ci.yml` runs format, lint, type-check, and build. Set the `TURBO_TOKEN`
-secret and the `TURBO_TEAM` variable to enable
+`.github/workflows/ci.yml` runs format, lint, type-check, test, and build in one
+`turbo run`. On a pull request it adds
+[`--affected`](https://turborepo.dev/docs/reference/run#--affected), so only the packages
+touched since the merge base do work. Pushes to `main` run everything and keep the
+remote cache warm for the next pull request. Set the `TURBO_TOKEN` secret and the
+`TURBO_TEAM` variable to enable
 [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching).
 
 ### Agent skills
