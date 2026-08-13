@@ -27,14 +27,23 @@ patterns which pass the checker but defer the real contract — `unknown` parame
 no parser, `typeof` narrowing that stands in for one, `x as unknown as T`, and similar.
 They push parsing to the I/O boundary where the data comes from.
 
+**Tests on `bun test`.** No separate runner to install or configure. Files named
+`*.test.tsx` beside the source are picked up automatically; `packages/ui` has examples
+that render components through `react-dom/server`, so there is no DOM emulator in the
+tree either.
+
 **One version per dependency.** Shared versions live in the `workspaces.catalog` block of
 the root `package.json`. Packages reference them with `"catalog:"`.
 
 **Hooks that run before you push.** `lefthook.yml` formats and lints staged files on
 commit and type-checks on push. `bun install` installs the hooks.
 
-**CI with remote caching.** `.github/workflows/ci.yml` runs format, lint, type-check, and
-build. Set the `TURBO_TOKEN` secret and the `TURBO_TEAM` variable to turn on
+**CI that only builds what changed.** `.github/workflows/ci.yml` runs format, then lint,
+type-check, test, and build in one `turbo run` with
+[`--affected`](https://turborepo.dev/docs/reference/run#--affected). Turborepo reads the
+base ref out of the GitHub Actions environment on its own, so there is nothing to
+configure — but it needs the history to compare against, which is why the checkout is
+`fetch-depth: 0`. Set the `TURBO_TOKEN` secret and the `TURBO_TEAM` variable to turn on
 [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching).
 
 **Agent skills.** `.claude/skills/vercel-react-best-practices` holds Vercel's React and
@@ -47,6 +56,7 @@ Next.js performance rules. Update it with `npx skills update`.
 | `bun run dev`         | Start every app             |
 | `bun run build`       | Build every app and package |
 | `bun run lint`        | Lint, type-aware            |
+| `bun run test`        | Run every test              |
 | `bun run check-types` | Type-check only             |
 | `bun run format`      | Format with oxfmt           |
 
