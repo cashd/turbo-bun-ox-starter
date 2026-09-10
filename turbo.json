@@ -20,5 +20,6 @@
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalDependencies": [".oxlintrc.json", "tools/oxlint/anti-slop/**"]
 }

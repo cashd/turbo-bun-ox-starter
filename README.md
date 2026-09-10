@@ -65,3 +65,11 @@ Add `--filter=web` to scope a turbo task to one package:
 ```sh
 bunx turbo dev --filter=web
 ```
+
+## Vendored lint rules
+
+Use Node.js 24 or newer alongside Bun to run the anti-slop RuleTester tests.
+`bun run test` includes them, and `bun run check-types` checks the vendored source.
+The source revision and retained local changes are recorded in
+[`tools/oxlint/anti-slop/UPSTREAM.md`](tools/oxlint/anti-slop/UPSTREAM.md).
+All 18 generic rules are enabled; the separate Effect rules remain opt-in.
