@@ -26,13 +26,16 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "oxfmt .",
-    "check-types": "turbo run check-types",
+    "check-types": "bun run typecheck:anti-slop && turbo run check-types",
     "format:check": "oxfmt --check .",
     "prepare": "lefthook install",
-    "test": "turbo run test"
+    "test": "bun run test:anti-slop && turbo run test",
+    "test:anti-slop": "node tools/oxlint/anti-slop/test.mjs",
+    "typecheck:anti-slop": "tsc -p tools/oxlint/anti-slop/tsconfig.json"
   },
   "devDependencies": {
     "@oxlint/plugins": "catalog:",
+    "@types/node": "catalog:",
     "lefthook": "^2.1.10",
     "oxfmt": "^0.63.0",
     "oxlint": "catalog:",
@@ -41,7 +44,8 @@
     "typescript": "catalog:"
   },
   "engines": {
-    "bun": ">=1.4.0"
+    "bun": ">=1.4.0",
+    "node": ">=24"
   },
   "packageManager": "bun@1.4.0"
 }
